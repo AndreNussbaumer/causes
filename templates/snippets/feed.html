@@ -1,0 +1,85 @@
+{% load static %}
+<style>
+
+	@media (max-width: 768px) {
+		.right-column{
+			margin-left: 0px;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.right-column{
+			margin-left: 20px;
+		}
+	}
+
+	.causes-post-container{
+	    width: 100%;
+		margin-bottom: 20px;
+	}
+	.create-post-bar{
+		background-color: #fff;
+		margin-bottom:20px;
+	}
+
+	.left-column{
+		padding:0px;
+	}
+
+	.right-column{
+		padding:0px;
+	}
+	.lead{
+		font-size: 17px;
+	}
+
+	.container1 {
+		overflow: hidden;
+	}
+
+	.row {
+	overflow: hidden;
+	}
+
+
+</style>
+<div class="container1">
+	<div class="row">
+
+			<!-- Causes-->
+			{% if causes_post %}
+				{% for post in causes_post %}
+					<div class="causes-post-container">
+						{% include 'causes/snippets/cause_snippet.html' with causes_post=post %}
+					</div>
+				{% endfor %}
+			{% else %}
+				<div class="causes-post-container">
+					{% include 'causes/snippets/cause_snippet.html' with query=query %}
+				</div>
+			{% endif %}
+			<!-- End Blog posts-->
+
+		<!-- Pagination -->
+
+		</div>
+		<!-- end blog feed -->
+				<!-- Right 'create post' column
+		<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
+
+			<div class="card create-post-bar d-flex flex-column p-3">
+                      <div class="d-flex flex-row align-items-center log">
+                        <h6 class="m-auto text-secondary">Start a <b>Cause</b>!</h6>
+                      </div>
+				<p class="m-auto"><a class="btn btn-primary" href="{% url 'causes:create' %}">Start a cause!</a></p>
+			</div>
+
+		</div>
+		end Right 'create post' column  -->
+
+
+
+
+
+	</div>
+</div>

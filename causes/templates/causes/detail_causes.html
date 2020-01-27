@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<style type="text/css">
+	.card {
+	width: 100%;
+	}
+	.card-body{
+	}
+
+
+    .btn {
+  color: black;
+  box-shadow: 1px 2px rgba(255, 21, 110, 1);
+  background-color: #2BFFBB;
+  border: none;
+}
+
+  	.btn:hover {
+  color: black;
+  background-color: #00da93;
+}
+
+   	.reply-btn {
+   	color: white !important;
+    background-color: black !important;
+    outline: none !important;
+    border: none !important;
+}
+
+   	.reply-btn:hover {
+   	color: white !important;
+    background-color: #333333 !important;
+    outline: none !important;
+    border: none !important;
+}
+
+
+	.reply-btn:focus {
+	color: yellow;
+	color-background: black !important;
+  	box-shadow: none;
+	}
+
+	.reply-btn::-moz-focus-inner {
+  	border: none;
+	}
+
+   	.btn:focus {
+   color: black !important;
+   background-color: #00b177 !important;
+   box-shadow: none;
+}
+
+    .btn1 {
+  color: black;
+  padding: 1vh;
+  float: right;
+  box-shadow: 1px 2px rgba(255, 21, 110, 1);
+  background-color: #2BFFBB;
+  border: none;
+}
+
+  	.btn1:hover {
+  color: black;
+  background-color: #00da93;
+}
+
+   	.btn1:active {
+   color: black !important;
+   border: none !important;
+   box-shadow: none !important;
+   background-color: #00b177 !important;
+   outline:none;
+}
+
+   	.btn1:focus {
+   color: black !important;
+   background-color: #00b177 !important;
+   box-shadow: none;
+   border: none !important;
+   border-color: white;
+   outline:none;
+}
+
+
+	.form-control:focus {
+        border-color: red;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        border: none !important;
+    }
+
+
+    .separator {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    }
+
+    .count {
+    padding-top: 4vh;
+    padding-bottom: 2vh;
+    }
+
+    .replied-comments {
+    }
+
+    .blockquote-footer {
+    top: -1vh;
+    left: 2vh;
+    border: none;
+    }
+
+    .reply {
+    max-height: 12vh;
+    position: relative;
+    bottom: 8vh;
+    left: 4vw;
+    }
+
+    .blockquote {
+    border: none;
+    }
+
+    .content {
+    position: relative;
+    top: 4vh;
+    left: 2vh;
+    border: none;
+    }
+
+    .content-reply {
+    position: relative;
+    top: 4vh;
+    left: 2vh;
+    border: none;
+    }
+
+    .reply {
+    position: relative;
+    left: 4vw;
+    border: none;
+    }
+
+    .comment_form {
+    height: 8vh;
+    }
+
+
+</style>
+<div class="container">
+	<div class="row">
+
+		<!-- Blog Post -->
+		<div class="card m-auto">
+			<img class="card-img-top" src="{{causes_post.image.url}}">
+			<div class="card-body mt-2 mb-2">
+			  <h2 class="card-title">{{causes_post.title}}</h2>
+			  <p class="card-text">{{causes_post.body|safe}}</p>
+				{% if causes_post.author == request.user %}
+			  <a href="{% url 'causes:edit' causes_post.slug %}" class="btn btn-primary">Update</a>
+				<a href="{% url 'causes:delete' causes_post.slug %}" class="btn btn-danger">Delete</a>
+			  {% endif %}
+			</div>
+			<div class="card-footer text-muted">
+				<p>Updated on {{causes_post.date_updated}}</p>
+				<p>Category: {{ causes_post.category }}</p>
+				Supporters: {{ causes_post.likes.count }}
+				{% if request.user.is_authenticated %}
+				<a class="btn1 btn-primary" href="{{ causes_post.get_like_url }}">Join!</a>
+				{% endif %}
+			</div>
+	</div>
+</div>
+			<div class="container">
+			  <div class="row">
+				<div class="separator" id="logout">
+					<div class="page-header">
+						<h3 class="reviews">Leave your comment</h3>
+					</div>
+				</div>
+			  </div>
+			</div>
+			{% if request.user.is_authenticated %}
+			<form method="post">
+				{% csrf_token %}
+				{{ comment_form.as_p }}
+				<input type="submit" value="Submit" class="btn btn-outline-success">
+				{% else %}
+				{% endif %}
+			</form>
+				<h5 class="count"> Comment{{ comments|pluralize }} ({{ comments.count }})</h5>
+			{% for comment in comments %}
+			<blockquote class="blockquote">
+				<p class="content"><small>{{ comment.content }}</small></p>
+				<footer class="blockquote-footer"><small>By <cite title="Source Title">{{ comment.user|capfirst }}</cite></small>
+				<!--<button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Reply</button></footer> -->
+			</blockquote>
+
+			<div class="replied-comments" style="display:none;">
+				{% for reply in comment.replies.all %}
+				<blockquote class="blockquote reply">
+					<p class="content-reply"><small>{{ reply.content }}</small></p>
+					<footer class="blockquote-footer"><small>By <cite title="Source Title">{{ reply.user|capfirst }}</cite></small>
+					</footer>
+				</blockquote>
+
+				{% endfor %}
+				 <form method="post">
+					{% csrf_token %}
+					<input type="hidden" name="comment_id" value="{{ comment.id }}">
+					{{ comment_form.as_p }}
+					{% if request.user.is_authenticated %}
+					<input type="submit" name="Submit" value="Submit" class="btn btn-outline-success">
+					{% else %}
+					{% endif %}
+				 </form>
+			</div>
+
+					{% endfor %}
+
+
+
+
+{% endblock content %}

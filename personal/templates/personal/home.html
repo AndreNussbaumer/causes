@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+
+
+  .pricing-header {
+  color: #303030;
+  }
+
+  .arrow {
+  padding: 6vh;
+  }
+
+  .card-deck {
+  position: relative;
+  top: -3vh;
+  }
+
+  .btn {
+  margin: 5vh;
+  color: black;
+  border: 2px solid #2BFFBB;
+  box-shadow: none;
+  background-color: white;
+}
+
+  .btn:hover {
+  color: black;
+  border: 2px solid #2BFFBB;
+  background-color: #2BFFBB;
+}
+
+   .btn:active {
+   color: black !important;
+   box-shadow: none;
+   border: none;
+   background-color: ##00da93 !important;
+}
+
+   .btn:focus {
+   color: black !important;
+   box-shadow: none;
+   border: none;
+   background-color: #00b177 !important;
+}
+
+    .drops {
+    text-shadow: 2px 2px  #2BFFBB;
+}
+
+</style>
+<!-- HEADER -->
+{% if request.user.is_authenticated %}
+{% else %}
+    {% include 'snippets/logo.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h3>Connecting millions all over the world <span class="drops">to fight for a <b>cause</b>!</span></h3>
+    <a href="{% url 'must_authenticate' %}" class="btn btn-lg btn-primary">Start!</a>
+</div>
+<div class="container">
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 border-0">
+      <div class="card-body">
+        <p class="my-0 font-weight-normal">Start a movement</p>
+      </div>
+      <div class="card-body">
+        <img class="img-fluid mx-auto d-block" src="{% static 'icon1.png' %}" alt="movement">
+      </div>
+    </div>
+    <div class="card mb-4 border-0">
+      <div class="card-body">
+        <p class="my-0 font-weight-normal">Mobilize</p>
+      </div>
+      <div class="card-body">
+        <img class="img-fluid mx-auto d-block" src="{% static 'icon2.png' %}" alt="mobilize">
+      </div>
+    </div>
+    <div class="card mb-4 border-0">
+      <div class="card-body">
+        <p class="my-0 font-weight-normal">Discuss</p>
+      </div>
+      <div class="card-body">
+        <img class="img-fluid mx-auto d-block" src="{% static 'icon.png' %}" alt="discuss">
+      </div>
+    </div>
+          <div class="card mb-4 border-0">
+      <div class="card-body">
+        <p class="my-0 font-weight-normal">Pressure</p>
+      </div>
+      <div class="card-body">
+        <img class="img-fluid mx-auto d-block" src="{% static 'icon4.png' %}" alt="pressure">
+      </div>
+    </div>
+          <div class="card mb-4 border-0">
+      <div class="card-body">
+        <p class="my-0 font-weight-normal">Change the <b>world</b>!</p>
+      </div>
+      <div class="card-body">
+        <img class="img-fluid mx-auto d-block" src="{% static 'icon5.png' %}" alt="changetheworld">
+      </div>
+    </div>
+  </div>
+            <img class="img-fluid mx-auto d-block arrow" src="{% static 'arrow.png' %}" alt="movement">
+  {% endif %}
+  <div> {% include 'snippets/feed.html' %}</div>
+<!-- main content -->
+
+
+ <!-- HEADER -->
+{% endblock content %}

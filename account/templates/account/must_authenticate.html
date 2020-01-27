@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<style type="text/css">
+
+    .log {
+    padding: 4vh;
+}
+    .log1 {
+    padding: 1vh;
+}
+    .drops {
+    text-shadow: 2px 2px  #2BFFBB;
+}
+
+
+
+</style>
+{% include 'snippets/logo.html' %}
+<div class="container">
+    <div class="d-flex flex-column log">
+        <h3 class="m-auto">You must be registered to start a <span class="drops"><b>cause!</b></span></h3>
+        <h5 class="m-auto log1">
+            <a href="{% url 'register' %}">Register</a> or
+            <a href="{% url 'login' %}">Login</a>
+        </h5>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style type="text/css">
+  .create-form {
+	    width: 100%;
+	    max-width: 100%;
+	    padding: 15px;
+	    margin: auto;
+  	}
+
+   .submit-button{
+  		max-width: 200px;
+  		float: middle;
+  	}
+
+   .btn {
+      color: black;
+      box-shadow: 1px 2px rgba(255, 21, 110, 1);
+      background-color: #2BFFBB;
+      border: none;
+    }
+
+   .btn:hover {
+      color: black;
+      background-color: #00da93;
+    }
+
+   .btn:active {
+       color: black !important;
+       background-color: #00b177 !important;
+    }
+
+   .btn:focus {
+       color: black !important;
+       background-color: #00b177 !important;
+    }
+
+   .form-control:focus {
+        border-color: 29e28e;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
+</style>
+
+<div class="container d-flex flex-row align-items-center">
+			<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+				  <div class="d-flex flex-row align-items-center log">
+    				<h3 class="m-auto text-secondary"><b>Start here!</b></h3>
+				  </div>
+
+				<!-- title -->
+				<div class="form-group">
+					<label for="id_title">Title</label>
+					<input class="form-control" type="text" name="title" id="id_title" placeholder="Title" required autofocus>
+				</div>
+
+				<!-- Body -->
+				<div class="form-group">
+					<label for="id_body">Content</label>
+					<textarea class="form-control" rows="10" type="text" name="body" id="id_body" placeholder="This cause seeks to..." required></textarea>
+				</div>
+
+				<!-- Image -->
+				<div class="form-group">
+					<label for="id_image">Image</label>
+					<input  type="file" name="image" id="id_image" accept="image/*" required>
+				</div>
+
+
+				<!-- Category -->
+				<div class="form-row field-category">
+                	<div>
+						<label class="required" for="id_category">Category:</label>
+						<select name="category" id="id_category">
+						  <option value="ENVIRONMENTAL" selected>Environmental</option>
+						  <option value="POLITICAL">Political</option>
+						  <option value="EDUCATIONAL">Educational</option>
+						  <option value="SPIRITUAL">Spiritual</option>
+						  <option value="PHILOSOPHICAL">Philosophical</option>
+						  <option value="OCCULT">Occult</option>
+						  <option value="RECREATIONAL">Recreational</option>
+						</select>
+					</div>
+    		    </div>
+
+				<!-- Submit btn -->
+				<button class="submit-button btn btn-lg btn-primary btn-block" type="submit">POST</button>
+			</form>
+</div>
+
+
+
+
+{% endblock content %}
